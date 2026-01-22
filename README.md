@@ -1,4 +1,3 @@
-# octokit.js
 
 > The all-batteries-included GitHub SDK for Browsers, Node.js, and Deno.
 
@@ -72,40 +71,7 @@ Deno
 Load <code>octokit</code> directly from <a href="https://esm.sh">esm.sh</a>
         
 ```ts
-import { Octokit, App } from "https://esm.sh/octokit?dts";
-```
-
-</td></tr>
-<tr><th>
-Node
-</th><td>
-
-Install with <code>npm/pnpm install octokit</code>, or <code>yarn add octokit</code>
-
-```js
-import { Octokit, App } from "octokit";
-```
-
-</td></tr>
-</tbody>
-</table>
-
-> [!IMPORTANT]
-> As we use [conditional exports](https://nodejs.org/api/packages.html#conditional-exports), you will need to adapt your `tsconfig.json` by setting `"moduleResolution": "node16", "module": "node16"`.
->
-> See the TypeScript docs on [package.json "exports"](https://www.typescriptlang.org/docs/handbook/modules/reference.html#packagejson-exports).<br>
-> See this [helpful guide on transitioning to ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c) from [@sindresorhus](https://github.com/sindresorhus)
-
-## `Octokit` API Client
-
-**standalone minimal Octokit**: [`@octokit/core`](https://github.com/octokit/core.js/#readme).
-
-The `Octokit` client can be used to send requests to [GitHub's REST API](https://docs.github.com/rest/) and queries to [GitHub's GraphQL API](https://docs.github.com/graphql).
-
-**Example**: Get the username for the authenticated user.
-
-```js
-// Create a personal access token at https://github.com/settings/tokens/new?scopes=repo
+import { Octokit, App } frat https://github.com/settings/tokens/new?scopes=repo
 const octokit = new Octokit({ auth: `personal-access-token123` });
 
 // Compare: https://docs.github.com/en/rest/reference/users#get-the-authenticated-user
@@ -120,72 +86,7 @@ console.log("Hello, %s", login);
 The most commonly used options are
 
 <table>
-  <thead align=left>
-    <tr>
-      <th>
-        name
-      </th>
-      <th>
-        type
-      </th>
-      <th width=100%>
-        description
-      </th>
-    </tr>
-  </thead>
-  <tbody align=left valign=top>
-    <tr>
-      <th>
-        <code>userAgent</code>
-      </th>
-      <td>
-        <code>String</code>
-      </td>
-      <td>
 
-Setting a user agent is required for all requests sent to GitHub's Platform APIs. The user agent defaults to something like this: `octokit.js/v1.2.3 Node.js/v8.9.4 (macOS High Sierra; x64)`. It is recommend to set your own user agent, which will prepend the default one.
-
-```js
-const octokit = new Octokit({
-  userAgent: "my-app/v1.2.3",
-});
-```
-
-</td>
-    </tr>
-    <tr>
-      <th>
-        <code>authStrategy</code>
-      </th>
-      <td>
-        <code>Function</code>
-      </td>
-      <td>
-
-Defaults to [`@octokit/auth-token`](https://github.com/octokit/auth-token.js#readme).
-
-See [Authentication](#authentication) below.
-
-</td>
-    </tr>
-    <tr>
-      <th>
-        <code>auth</code>
-      </th>
-      <td>
-        <code>String</code> or <code>Object</code>
-      </td>
-      <td>
-
-Set to a [personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) unless you changed the `authStrategy` option.
-
-See [Authentication](#authentication) below.
-
-</td>
-    </tr>
-    <tr>
-      <th>
-        <code>baseUrl</code>
       </th>
       <td>
         <code>String</code>
@@ -214,24 +115,7 @@ Advanced options
         name
       </th>
       <th>
-        type
-      </th>
-      <th width=100%>
-        description
-      </th>
-    </tr>
-  </thead>
-  <tbody align=left valign=top>
-    <tr>
-      <th>
-        <code>request</code>
-      </th>
-      <td>
-        <code>Object</code>
-      </td>
-      <td>
-
-- `request.signal`: Use an [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) instance to cancel a request. [`abort-controller`](https://www.npmjs.com/package/abort-controller) is an implementation for Node.
+    [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) instance to cancel a request. [`abort-controller`](https://www.npmjs.com/package/abort-controller) is an implementation for Node.
 - `request.fetch`: Replacement for [built-in fetch method](<https://nodejs.org/en/blog/announcements/v18-release-announce#fetch-(experimental)>).
 
 Node only
@@ -358,16 +242,7 @@ const {
   data: { slug },
 } = await octokit.rest.apps.getAuthenticated();
 
-// creates an installation access token as needed
-// assumes that installationId 123 belongs to @octocat, otherwise the request will fail
-await octokit.rest.issues.create({
-  owner: "octocat",
-  repo: "hello-world",
-  title: "Hello world from " + slug,
-});
-```
-
-You can use the [`App`](#github-app) or [`OAuthApp`](#oauth-app) SDKs which provide APIs and internal wiring to cover most use cases.
+// createSDKs which provide APIs and internal wiring to cover most use cases.
 
 For example, to implement the above using `App`
 
@@ -891,87 +766,4 @@ The default routes that the middleware exposes are
 | `POST /api/github/webhooks`             | Endpoint to receive GitHub Webhook Event requests                                                                                                                                                                                                                                                                                                                             |
 | `GET /api/github/oauth/login`           | Redirects to GitHub's authorization endpoint. Accepts optional `?state` and `?scopes` query parameters. `?scopes` is a comma-separated list of [supported OAuth scope names](https://docs.github.com/en/developers/apps/scopes-for-oauth-apps#available-scopes)                                                                                                               |
 | `GET /api/github/oauth/callback`        | The client's redirect endpoint. This is where the `token` event gets triggered                                                                                                                                                                                                                                                                                                |
-| `POST /api/github/oauth/token`          | Exchange an authorization code for an OAuth Access token. If successful, the `token` event gets triggered.                                                                                                                                                                                                                                                                    |
-| `GET /api/github/oauth/token`           | Check if token is valid. Must authenticate using token in `Authorization` header. Uses GitHub's [`POST /applications/{client_id}/token`](https://docs.github.com/en/rest/reference/apps#check-a-token) endpoint                                                                                                                                                               |
-| `PATCH /api/github/oauth/token`         | Resets a token (invalidates current one, returns new token). Must authenticate using token in `Authorization` header. Uses GitHub's [`PATCH /applications/{client_id}/token`](https://docs.github.com/en/rest/reference/apps#reset-a-token) endpoint.                                                                                                                         |
-| `PATCH /api/github/oauth/refresh-token` | Refreshes an expiring token (invalidates current one, returns new access token and refresh token). Must authenticate using token in `Authorization` header. Uses GitHub's [`POST https://github.com/login/oauth/access_token`](https://docs.github.com/en/developers/apps/refreshing-user-to-server-access-tokens#renewing-a-user-token-with-a-refresh-token) OAuth endpoint. |
-| `POST /api/github/oauth/token/scoped`   | Creates a scoped token (does not invalidate the current one). Must authenticate using token in `Authorization` header. Uses GitHub's [`POST /applications/{client_id}/token/scoped`](https://docs.github.com/en/rest/reference/apps#create-a-scoped-access-token) endpoint.                                                                                                   |
-| `DELETE /api/github/oauth/token`        | Invalidates current token, basically the equivalent of a logout. Must authenticate using token in `Authorization` header.                                                                                                                                                                                                                                                     |
-| `DELETE /api/github/oauth/grant`        | Revokes the user's grant, basically the equivalent of an uninstall. must authenticate using token in `Authorization` header.                                                                                                                                                                                                                                                  |
-
-Example: create a GitHub server with express
-
-```js
-import express from "express";
-import { App, createNodeMiddleware } from "octokit";
-
-const expressApp = express();
-const octokitApp = new App({
-  appId,
-  privateKey,
-  webhooks: { secret },
-  oauth: { clientId, clientSecret },
-});
-
-expressApp.use(createNodeMiddleware(app));
-
-expressApp.listen(3000, () => {
-  console.log(`Example app listening at http://localhost:3000`);
-});
-```
-
-### OAuth for browser apps
-
-You must not expose your app's client secret to the user, so you cannot use the `App` constructor. Instead, you have to create a server using the `App` constructor which exposes the `/api/github/oauth/*` routes, through which you can safely implement an OAuth login for apps running in a web browser.
-
-If you set `(User) Authorization callback URL` to your own app, than you need to read out the `?code=...&state=...` query parameters, compare the `state` parameter to the value returned by `app.oauthLoginUrl()` earlier to protect against forgery attacks, then exchange the `code` for an OAuth Authorization token.
-
-If you run an [app server](#app-server) as described above, the default route to do that is `POST /api/github/oauth/token`.
-
-Once you successfully retrieved the token, it is also recommended to remove the `?code=...&state=...` query parameters from the browser's URL
-
-```js
-const code = new URL(location.href).searchParams.get("code");
-if (code) {
-  // remove ?code=... from URL
-  const path =
-    location.pathname +
-    location.search.replace(/\b(code|state)=\w+/g, "").replace(/[?&]+$/, "");
-  history.replaceState({}, "", path);
-
-  // exchange the code for a token with your backend.
-  // If you use https://github.com/octokit/oauth-app.js
-  // the exchange would look something like this
-  const response = await fetch("/api/github/oauth/token", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({ code }),
-  });
-  const { token } = await response.json();
-  // `token` is the OAuth Access Token that can be use
-
-  const { Octokit } = await import("https://esm.sh/@octokit/core");
-  const octokit = new Octokit({ auth: token });
-
-  const {
-    data: { login },
-  } = await octokit.request("GET /user");
-  alert("Hi there, " + login);
-}
-```
-
-🚧 We are working on [`@octokit/auth-oauth-user-client`](https://github.com/octokit/auth-oauth-user-client.js#readme) to provide a simple API for all methods related to OAuth user tokens.
-
-The plan is to add an new `GET /api/github/oauth/octokit.js` route to the node middleware which will return a JavaScript file that can be imported into an HTML file. It will make a pre-authenticated `octokit` Instance available.
-
-## Action client
-
-**standalone module:** [`@octokit/action`](https://github.com/octokit/action.js#readme)
-
-🚧 A fully fledged `Action` client is pending. You can use [`@actions/github`](https://github.com/actions/toolkit/tree/main/packages/github) for the time being
-
-## LICENSE
-
-[MIT](LICENSE)
+| `POST /api/github/oauth/token`          | Exchange an authorization code for an OAuth Access token. If successful, the `token` event gets triggered.                                                                                                                                                                                                                                         
